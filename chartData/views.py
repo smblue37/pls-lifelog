@@ -173,7 +173,7 @@ def regularData():
 
     global toilet_fig, toilet_timezone_fig, toiletGraph, toiletGraph2
 
-    toilet_data = go.Scatter(x=list(toilet_times_dict.keys()), y=list(toilet_times_dict.values()))
+    toilet_data = go.Scatter(x=list(toilet_times_dict.keys()), y=list(toilet_times_dict.values()), mode='lines', line_shape='spline')
     toilet_fig = go.Figure()
     toilet_fig.add_trace(toilet_data)
 
@@ -193,7 +193,7 @@ def regularData():
         # 저녁
         else:
             toilet_timezone[3] += 1
-    toilet_timezone_data = go.Scatter(x=['새벽 (0시 ~ 6시)', '아침 (6시 ~ 12시)', '점심 (12시 ~ 18시)', '저녁 (18시 ~ 24시)'], y=toilet_timezone)
+    toilet_timezone_data = go.Scatter(x=['새벽 (0시 ~ 6시)', '아침 (6시 ~ 12시)', '점심 (12시 ~ 18시)', '저녁 (18시 ~ 24시)'], y=toilet_timezone, mode='lines', line_shape='spline')
     toilet_timezone_fig = go.Figure()
     toilet_timezone_fig.add_trace(toilet_timezone_data)
 
@@ -210,7 +210,7 @@ def regularData():
 
     medicine_times = []
     for index, row in df.iterrows():
-        if ('약' in row['Z']):
+        if (row['Z'] == '약'):
             try:
                 mtime = dt.datetime.strptime(row['Time'], '\'%Y-%m-%d %H:%M:%S')
             except IndexError:
@@ -262,9 +262,15 @@ def regularData():
 
     global medicine_fig, medicineGraph
 
-    medicine_fig = go.Figure()
-    for i in range(4):
-        medicine_fig.add_trace(go.Scatter(x=list(medicine_date_num.keys()), y=medicine_data_values[i], mode='lines', line_shape='spline', name='breakfast', connectgaps=True,))
+    nameArr = ['밤', '아침', '점심', '저녁']
+    
+    medicine_fig = go.Figure(data=[
+        go.Bar(name=nameArr[0], x=list(medicine_date_num.keys()), y=medicine_data_values[0]),
+        go.Bar(name=nameArr[1], x=list(medicine_date_num.keys()), y=medicine_data_values[1]),
+        go.Bar(name=nameArr[2], x=list(medicine_date_num.keys()), y=medicine_data_values[2]),
+        go.Bar(name=nameArr[3], x=list(medicine_date_num.keys()), y=medicine_data_values[3])
+    ])
+    medicine_fig.update_layout(barmode='stack')
     medicineGraph = medicine_fig.to_html(full_html=False, default_height=500, default_width=700)
     
     # 약 복용 하지 않은 날

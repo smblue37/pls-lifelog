@@ -16,16 +16,22 @@
 <body>
     <div id='paper'>
         <p class='titleText'>3. 규칙성 분석</p>
+        <p class='title'>일간 용변 횟수 그래프</p>
         <p class='smallText'>{{regText1}}</p>
         <p class='smallText'>{{regText2}}</p>
         {{toiletGraph|safe}}
+        <p class='warningText'>*가로축은 날짜, 세로축은 용변 횟수를 의미합니다.</p>
+        <p class='title'>시간대별 용변 횟수 그래프</p>
         {{toiletGraph2|safe}}
+        <p class='warningText'>*가로축은 시간대, 세로축은 용변 횟수를 의미합니다.</p>
+        <p class='title'>시간대별 약 복용 그래프</p>
         <p class='smallText'>{{regText3}}</p>
         <p class='smallText'>{{regText4}}</p>
         <p class='smallText'>{{regText5}}</p>
         <p class='smallText'>{{regText6}}</p>
         <p class='smallText'>{{regText7}}</p>
         {{medicineGraph|safe}}
+        <p class='warningText'>*가로축은 날짜, 세로축은 약 복용 횟수를 의미합니다.</p>
     </div>
 </body>
 </html>
